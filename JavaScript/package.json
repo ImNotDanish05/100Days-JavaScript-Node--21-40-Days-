@@ -1,0 +1,15 @@
+{
+  "name": "imnotdanish",
+  "version": "1.0.0",
+  "description": "Lmao",
+  "main": "execute.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "show-me-a-cat": "^1.4.0"
+  }
+}
