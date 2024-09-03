@@ -8,6 +8,7 @@ ES6
 Test1 = 43434343 // not recomended
 console.log(Test1);
 var Test1 = 434343;
+var Test1 = 44343;
 console.log(Test1);
 
 var Test2 = "feef";
@@ -27,3 +28,11 @@ console.log(Lmaooo[0])
 Lmaooo[0] = "XDDDDDDDD"
 console.log(Lmaooo[0])
 
+/*
+Let is more usefull for 'if' statement (from Kody Simpson javascript tutorial)
+*/
+
+let variable = 3434;
+console.log(variable)
+variable = "343434";
+console.log(variable)
