@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>ImNotDanish05</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <% if (channel == "ImNotDanish05") { %>
+        <% for(var i = 0; i < videoID.length ; i++ ){ %>
+            <p>Music: <%= videoID[i].Title %></p>
+            <div class="my-video">
+                <iframe width="560" height="315" 
+                  src="https://www.youtube.com/embed/<%= videoID[i].ID %>" 
+                  title="<%= videoID.Title %>" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+        <% } %>
+    <% } else { %>
+    <h1>You are on youtube</h1>
+    <h2>The channle's name <%= channel %></h2>
+    <% } %>
+</head>
+<body>
