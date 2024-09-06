@@ -20,11 +20,11 @@ software.get("/youtube/:channel/", function(req,res){
 
 software.get("/:arg1", function(req,res){
     const arg1 = req.params.arg1;
-    res.render("web", {obj : arg1});
+    res.render("web.ejs", {obj : arg1});
 })
 
-software.get("*/", function(req,res){
-    res.render("home");
+software.get("*", function(req,res){
+    res.render("home.ejs");
 })
 software.listen(2000, function(){
     console.log("The server is running Lma")
