@@ -1,8 +1,9 @@
 body{
-    background-image: "";
-    color: gray;
-    font-size: 500px;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    font-family: Love;
 }
-h1{
-    font-size: 20px;
+p{
+    color: whitesmoke;
 }

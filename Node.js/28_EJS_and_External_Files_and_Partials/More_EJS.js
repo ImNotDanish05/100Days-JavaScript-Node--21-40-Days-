@@ -1,8 +1,10 @@
 const express = require("express");
 const software = express();
 
-software.use(express.static("public"))
-software.set("view-engine", "ejs")
+software.use(express.static("public"));
+software.set("view engine", ".ejs");
+
+// software.set("view-engine", "ejs")
 
 software.get("/youtube/:channel/", function(req,res){
     const channel = req.params.channel;
@@ -11,7 +13,7 @@ software.get("/youtube/:channel/", function(req,res){
         {ID:"HQrEicGeyuE", Title: "Take it"},
         {ID:"PU7oaPFZWl4", Title: "Honor"}
     ]
-    res.render("youtube.ejs", 
+    res.render("youtube", 
         {
         channel : channel,
         videoID : videoID
@@ -20,11 +22,11 @@ software.get("/youtube/:channel/", function(req,res){
 
 software.get("/:arg1", function(req,res){
     const arg1 = req.params.arg1;
-    res.render("web.ejs", {obj : arg1});
+    res.render("web", {obj : arg1});
 })
 
 software.get("*", function(req,res){
-    res.render("home.ejs");
+    res.render("home");
 })
 software.listen(2000, function(){
     console.log("The server is running Lma")
