@@ -43,30 +43,30 @@ software.set("view engine", ".ejs");
 // console.log(completion.choices[0].message);
 
 
-// request.get("LINK API HERE", function(error, response, body){
-//     if(error){
-//         console.log(error.statusCode);
-//     }else{
-//         console.log("Work");
-//         // console.log(body);
-//         var data = JSON.parse(body);
-//         console.log(data.timezone)
-//         console.log("Temperature in japan: " + data.hourly.temperature_2m[1])
-//     }
-// })
-
-axios.get('https://www.goldapi.io/api/XAU/USD', {
-    headers: {
-        'x-access-token': 'LINK API HERE',
-        'Content-Type': 'application/json'
+request.get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m", function(error, response, body){
+    if(error){
+        console.log(error.statusCode);
+    }else{
+        console.log("Work");
+        // console.log(body);
+        var data = JSON.parse(body);
+        console.log(data.timezone)
+        console.log("Temperature in japan: " + data.hourly.temperature_2m[1])
     }
 })
-.then(response => {
-    console.log(response.data);
-})
-.catch(error => {
-    console.error('Error fetching data:', error);
-});
+
+// axios.get('https://www.goldapi.io/api/XAU/USD', {
+//     headers: {
+//         'x-access-token': 'LINK API HERE',
+//         'Content-Type': 'application/json'
+//     }
+// })
+// .then(response => {
+//     console.log(response.data);
+// })
+// .catch(error => {
+//     console.error('Error fetching data:', error);
+// });
 
 software.get("/youtube/:channel/", function(req,res){
     const channel = req.params.channel;
