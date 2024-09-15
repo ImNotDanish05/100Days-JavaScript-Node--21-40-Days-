@@ -2,6 +2,7 @@ const express = require("express");
 const software = express();
 const request = require("request");
 const openai = require("openai");
+const axios = require('axios');
 // const openai = OpenAI();
 
 
@@ -38,17 +39,34 @@ software.set("view engine", ".ejs");
 
 // console.log(completion.choices[0].message);
 
+
 // console.log(completion.choices[0].message);
 
 
-// request.get("https://query.yahooapis.com/v1/public/yql?q=select%20wind%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22chicago%2C%20il%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", function(error, response, body){
+// request.get("LINK API HERE", function(error, response, body){
 //     if(error){
 //         console.log(error.statusCode);
 //     }else{
-//         console.log(body);
-//         console.log(response.statusCode)
+//         console.log("Work");
+//         // console.log(body);
+//         var data = JSON.parse(body);
+//         console.log(data.timezone)
+//         console.log("Temperature in japan: " + data.hourly.temperature_2m[1])
 //     }
 // })
+
+axios.get('https://www.goldapi.io/api/XAU/USD', {
+    headers: {
+        'x-access-token': 'LINK API HERE',
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => {
+    console.log(response.data);
+})
+.catch(error => {
+    console.error('Error fetching data:', error);
+});
 
 software.get("/youtube/:channel/", function(req,res){
     const channel = req.params.channel;
