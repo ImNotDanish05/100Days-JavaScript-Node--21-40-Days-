@@ -55,18 +55,18 @@ request.get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.
     }
 })
 
-// axios.get('https://www.goldapi.io/api/XAU/USD', {
-//     headers: {
-//         'x-access-token': 'LINK API HERE',
-//         'Content-Type': 'application/json'
-//     }
-// })
-// .then(response => {
-//     console.log(response.data);
-// })
-// .catch(error => {
-//     console.error('Error fetching data:', error);
-// });
+axios.get('https://www.goldapi.io/api/XAU/USD', {
+    headers: {
+        'x-access-token': 'YOUR API, NOT MINE',
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => {
+    console.log(response.data);
+})
+.catch(error => {
+    console.error('Error fetching data:', error);
+});
 
 software.get("/youtube/:channel/", function(req,res){
     const channel = req.params.channel;
