@@ -4,6 +4,7 @@ const software = express();
 const request = require("request");
 const openai = require("openai");
 const axios = require('axios');
+const bodyparser = require('body-parser');
 
 const UnsplashAPI = process.env.UnsplashAPI;
 const UnsplashAPIPage = process.env.UnsplashAPIPage;
@@ -12,6 +13,52 @@ const APIKEY_ItchIo = process.env.APIKEY_ItchIo;
 
 software.use(express.static("public"));
 software.set("view engine", ".ejs");
+software.use("/data", express.static("data"));
+software.use(bodyparser.urlencoded({extended: true}));
+
+const games = [{
+    filename: "Age_Of_War.swf",
+    creator: "Armor Games",
+    title: "Pertarungan Raksasa Serangan Kerajaan Kucing!",
+    score: 4.5,
+    thumbnail: "Age Of War.jpg"
+},
+{
+    filename: "a-trashy-love-story-131423467.swf",
+    creator: "Armor Games",
+    title: "Cinta Konyol Pelukan dalam Tumpukan Sampah!",
+    score: 4.0,
+    thumbnail: "a-trashy-love-story-131423467.jpg"
+},
+{
+    filename: "battlegrounds-2-765817f.swf",
+    creator: "Armor Games",
+    title: "Arena Super Pertarungan untuk Dompet Terbaik!",
+    score: 4.7,
+    thumbnail: "battlegrounds-2-765817f.jpg"
+},
+{
+    filename: "spike-a-love-story-11388f2f2.swf",
+    creator: "Armor Games",
+    title: "Cinta Berduri Rintangan Manis di Taman Berduri!",
+    score: 4.2,
+    thumbnail: "spike-a-love-story-11388f2f2.jpg"
+},
+{
+    filename: "block-world-11584f2f2.swf",
+    creator: "Armor Games",
+    title: "Dunia Blok Bangun Istana dari Dadu Raksasa!",
+    score: 4.3,
+    thumbnail: "block-world-11584f2f2.jpg"
+},
+{
+    filename: "base-defense-2-1082817f.swf",
+    creator: "Armor Games",
+    title: "Pertahanan Super Serangan Musuh dari Planet Lain!",
+    score: 4.6,
+    thumbnail: "base-defense-2-1082817f.jpg"
+}
+];
 
 /*
 npm install express --save
@@ -25,12 +72,41 @@ npm install dotenv --save
 //     if (id === "JSON"){
 //         const response = axios.get(`${UnsplashAPI}`);
 //         const pictureData = response.data;
-
 //         res.render('json', { JSON: pictureData });
-
 //     }
-
 // })
+
+
+
+software.get("/game/addgame", function(req,res){
+    res.render("gameadd");
+})
+
+software.post("/game/addgame", function(req,res){
+    var data = req.body;
+    console.log(data);
+    games.push(data);   
+    res.redirect('/game/list');
+})
+
+
+software.get("/game/list", function (req, res){
+    res.render("gamelist", {games : games})
+});
+
+software.get("/game/:gamename", function (req, res){
+    const gamename = req.params.gamename;
+    console.log("Requested game:", gamename); // Add this line
+    
+    res.render("game",{
+        gamename : gamename 
+    })
+    if (!gameExists) {}
+    })
+
+software.get("/game/*", function (req, res){
+    console.log("Yay")
+})
 
 software.get('/picture/page/:id', async (req, res) => {
     const id = req.params.id;
@@ -151,9 +227,9 @@ software.get("/:arg1", function(req,res){
     res.render("web", {obj : arg1});
 })
 
-software.get("*", function(req,res){
+software.get("/", function(req, res){
     res.render("home");
-})
+});
 software.listen(2000, function(){
     console.log("The server is running Lmao")
 })

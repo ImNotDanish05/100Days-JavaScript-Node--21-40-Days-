@@ -1,0 +1,29 @@
+<%- include ('temp/header') %>
+
+<p class="text-center fw-bold">Game name: <%= gamename %></p>
+<object>
+    <embed src="/data/games/gameprogram/<%= gamename %>" width="1280" height="720" />
+</object>
+<button id="fullscreen-btn">Go Fullscreen</button>
+<!-- <script src="https://unpkg.com/@ruffle-rs/ruffle"></script> -->
+<script src="/Ruffle/ruffle.js"></script>  
+
+<script>
+    // Wait until the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the Ruffle player object
+        var rufflePlayer = document.getElementById('ruffle-player');
+        
+        // Check if fullscreen is allowed
+        if (rufflePlayer && rufflePlayer.fullscreenEnabled) {
+            // Add event listener to the fullscreen button
+            document.getElementById('fullscreen-btn').addEventListener('click', function() {
+                // Request fullscreen for the Ruffle player
+                rufflePlayer.enterFullscreen();
+            });
+        } else {
+            console.error("Fullscreen is not enabled for this player.");
+        }
+    });
+</script>
+<%- include ('temp/footer') %>

@@ -41,12 +41,18 @@
       </div>
       </div>
         <% } %>
+        <div class="container"></div>
+          <div class="button-container">
+            <p>Page: <%= Number(id) %> </p>
+          </div>
+        </div>
 
     <% var Data = query ? DataS.results : DataS; %>
       
       <div class="container">
   
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          
             <% for(var i = 0 ; i < Data.length ; i++ ) {%>
             <div class="col">
                 <div class="card shadow-sm" style="background-color: whitesmoke ; border-width: 5px; border-color: <%= Data[i].color %> ; border-style: solid">
