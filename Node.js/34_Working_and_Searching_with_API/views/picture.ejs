@@ -27,11 +27,13 @@
         <input type="hidden" name="SearchTerm" value="<%= searchterm %>">
       <button type="submit" class="btn btn-secondary">&gt</button>
       </form>
+      
     </div>
     </div>
       <% }else{ %>
+        <div class="button-container">
         <div class="container">
-          <div class="button-container">
+          
         <form class="d-flex" role="search" action="/picture/page/<%= Number(id) - 1 %>" method="get">
           <button type="submit" class="btn btn-secondary">&lt</button>
         </form>
@@ -45,8 +47,10 @@
     <% var Data = query ? DataS.results : DataS; %>
       
       <div class="container">
-  
+        <div class="button-container">
+        <p>Page: <%= id %></p></div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          
             <% for(var i = 0 ; i < Data.length ; i++ ) {%>
             <div class="col">
                 <div class="card shadow-sm" style="background-color: whitesmoke ; border-width: 5px; border-color: <%= Data[i].color %> ; border-style: solid">
