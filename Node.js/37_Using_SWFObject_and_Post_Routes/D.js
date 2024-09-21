@@ -57,6 +57,20 @@ const games = [{
     title: "Pertahanan Super Serangan Musuh dari Planet Lain!",
     score: 4.6,
     thumbnail: "base-defense-2-1082817f.jpg"
+},
+{
+    filename: "super-drift-3d-12177fdd9.swf",
+    creator: "Armor Games",
+    title: "Racing 3d",
+    score: 4.6,
+    thumbnail: "Super_Drift_3D.jpg"
+},
+{
+    filename: "tevlon-3d-978817f.swf",
+    creator: "Tevlon",
+    title: "Racing 3d",
+    score: 4.6,
+    thumbnail: "Super_Drift_3D.jpg"
 }
 ];
 
