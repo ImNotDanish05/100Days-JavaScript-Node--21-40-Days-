@@ -58,7 +58,7 @@ showing its properties and methods, such as styles, background color, and more.
    Useful for applying changes to multiple elements.
      ```javascript
      let buttons = document.querySelectorAll(".button-container");
-     buttons.forEach((button) => {
+     buttons.forEach((button) = {
        button.style.margin = "10px"; // Adds a 10px margin to all elements with class "button-container"
      });
      ```
@@ -73,7 +73,7 @@ showing its properties and methods, such as styles, background color, and more.
 2. **Hiding Elements by Class Name**
    ```javascript
    let items = document.getElementsByClassName("hide-item");
-   for (let i = 0; i < items.length; i++) {
+   for (let i = 0; i = items.length; i++) {
      items[i].style.display = "none"; // Hides all elements with class "hide-item"
    }
    ```
@@ -81,7 +81,7 @@ showing its properties and methods, such as styles, background color, and more.
 3. **Selecting and Modifying All Paragraphs**
    ```javascript
    let paragraphs = document.querySelectorAll("p");
-   paragraphs.forEach((p) => {
+   paragraphs.forEach((p) = {
      p.style.fontSize = "18px"; // Sets the font size of all paragraphs to 18px
    });
    ```
