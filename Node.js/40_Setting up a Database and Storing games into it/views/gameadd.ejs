@@ -1,0 +1,30 @@
+<%- include ('temp/header.ejs') %>
+
+<form action="/game/addgame" method="POST">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Creator</label>
+      <input type="text" class="form-control" name="creator">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Title of the game</label>
+      <input type="text" class="form-control" name="title">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">File name</label>
+        <input type="text" class="form-control" name="filename">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Thumbnail</label>
+        <input type="text" class="form-control" name="thumbnail">
+      </div>
+      <div class="mb-3">
+        <input type="hidden" class="form-control" name="score" value=1>
+      </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">By accept this, you agree with the Terms and Condition</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+<%- include ('temp/footer.ejs') %>

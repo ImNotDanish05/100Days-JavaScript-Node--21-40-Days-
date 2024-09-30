@@ -1,0 +1,107 @@
+<%- include ('temp/header') %>
+<!-- <main>
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">PICTURE</h1>
+          <p class="lead text-body-secondary">Page:</p>
+          <p>
+            <a href="" class="btn btn-primary my-2">Main call to action</a>
+            
+            <a href="" class="btn btn-secondary my-2">Secondary action</a>
+          </p>
+        </div>
+      </div>
+    </section> -->
+    <%- include ('temp/picture_search') %>
+    <% if (query){ %>
+      <p>Searching: <%= searchterm %></p>
+      <div class="container">
+        <div class="button-container">
+      <form class="d-flex" role="search" action="/picture/search/<%= Number(id) - 1 %>?SearchTerm=<%= searchterm %>" method="get">
+        <input type="hidden" name="SearchTerm" value="<%= searchterm %>">
+        <button type="submit" class="btn btn-secondary">&lt</button>
+      </form>
+      <form class="d-flex" role="search" action="/picture/search/<%= Number(id) + 1 %>?SearchTerm=<%= searchterm %>" method="get">
+        <input type="hidden" name="SearchTerm" value="<%= searchterm %>">
+      <button type="submit" class="btn btn-secondary">&gt</button>
+      </form>
+    </div>
+    </div>
+      <% }else{ %>
+        <div class="container">
+          <div class="button-container">
+        <form class="d-flex" role="search" action="/picture/page/<%= Number(id) - 1 %>" method="get">
+          <button type="submit" class="btn btn-secondary">&lt</button>
+        </form>
+        <form class="d-flex" role="search" action="/picture/page/<%= Number(id) + 1 %>" method="get">
+        <button type="submit" class="btn btn-secondary">&gt</button>
+        </form>
+      </div>
+      </div>
+        <% } %>
+        <div class="container"></div>
+          <div class="button-container">
+            <p id="pagenumber">Page: <%= Number(id) %> </p>
+          </div>
+        </div>
+
+    <% var Data = query ? DataS.results : DataS; %>
+      
+      <div class="container">
+  
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          
+            <% for(var i = 0 ; i < Data.length ; i++ ) {%>
+            <div class="col">
+                <div class="card shadow-sm" style="background-color: whitesmoke ; border-width: 5px; border-color: <%= Data[i].color %> ; border-style: solid">
+                  <img src="<%= Data[i].urls.small %>" class="bd-placeholder-img card-img-top" 
+                  width="100%" 
+                  height="100%" 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  role="img" 
+                  
+                  aria-label="Placeholder: Thumbnail" 
+                  preserveAspectRatio="xMidYMid slice" 
+                  focusable="false">
+                  <title id="Test">Placeholder</title>
+                  <rect 
+                  width="100%" 
+                  height="100%" 
+                  fill="#55595c"/>
+                </img>
+                  <div class="card-body">
+                    <p class="card-text">
+                        <%= Data[i].alt_description %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        
+                      <div class="btn-group">
+
+                        <a href="<%= Data[i].urls.full %>" class="btn btn-outline-light" role="button" style="border-color: <%= Data[i].color%>; border-width: 3px ; color: gray">Check</a>
+                        <a href="<%= Data[i].urls.full %>"class="btn btn-light" style="border-width: 3px ; border-color: <%= Data[i].color%>">
+                          <i class="bi bi-hand-thumbs-up"> <%= Data[i].likes %></i>
+                      </a>
+                        <!-- <a href="<%= Data[i].urls.full %>" class="btn btn-outline-primary" role="button">Check</a>                         -->
+                        <!-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="openLink()">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                      </div>
+                      <div class="d-flex flex-column ">
+                      <small class="text-body-secondary" style="font-size: 20px;">@<%= Data[i].user.username %></small>
+                      <small class="text-body-secondary" style="font-size: 0.8rem;"><%= Data[i].updated_at %></small>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    </div>
+</main>
+
+
+
+
+<%- include ('temp/footer') %>
