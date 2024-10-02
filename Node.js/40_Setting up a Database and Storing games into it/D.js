@@ -46,6 +46,11 @@ const client = new MongoClient(uri, {
   }
   run().catch(console.dir);
   
+async function storedata(){
+    try {
+        run();
+    } 
+}
 
 const games = [{
     filename: "Age_Of_War.swf",
