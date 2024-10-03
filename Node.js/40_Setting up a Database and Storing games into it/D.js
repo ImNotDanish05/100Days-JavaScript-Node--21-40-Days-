@@ -38,21 +38,39 @@ const client = new MongoClient(uri, {
       // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      await test();
       MongoDB_SET = true;
-    } finally {
+    } catch (error) {
       // Ensures that the client will close when you finish/error
-      await client.close();
+      console.log (error);
+    //   await client.close();
     }
   }
   run().catch(console.dir);
 
+
 async function test(){
     try {
+        const database = client.db("Danish05Web");
+        const users = database.collection("User"); // Collection itu tablenya Mysql
+
+        const newuser = {
+            name : "ImNotDanish05",
+            gmail : "EatCookies@gmail.com"
+        };
+        
+        const result = await users.insertOne(newuser);
+        console.log(`User inserted with _id: ${result.insertedId}`);
+
 
     } catch (error){
         console.log(error);
+    } finally {
+        // Tutup koneksi setelah semua selesai
+        await client.close();
+        console.log("Connection to MongoDB closed.");
     }
-} 
+}
 
 
   
