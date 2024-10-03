@@ -74,6 +74,11 @@ async function test(){
 
 
   
+async function storedata(){
+    try {
+        run();
+    } 
+}
 
 const games = [{
     filename: "Age_Of_War.swf",
