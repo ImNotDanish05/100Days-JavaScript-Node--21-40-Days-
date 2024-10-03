@@ -13,7 +13,7 @@ const UnsplashAPIPage = process.env.UnsplashAPIPage;
 const UAPISearch = process.env.UNSPLASHAPISEARCH;
 const APIKEY_ItchIo = process.env.APIKEY_ItchIo;
 const DB_PASSWORD = process.env.DB_Password;
-const uri = `mongodb+srv://danish05:${DB_PASSWORD}@cluster0.qsh4g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://danish05:${DB_PASSWORD}@cluster0.qsh4g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&connectTimeoutMS=30000`;
 
 software.use(express.static("public"));
 software.set("view engine", ".ejs");
@@ -31,112 +31,107 @@ const client = new MongoClient(uri, {
     }
   });
 
-  async function run() {
-    try {
-      // Connect the client to the server	(optional starting in v4.7)
-      await client.connect();
-      // Send a ping to confirm a successful connection
-      await client.db("admin").command({ ping: 1 });
-      console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      await test();
-      MongoDB_SET = true;
-    } catch (error) {
-      // Ensures that the client will close when you finish/error
-      console.log (error);
-    //   await client.close();
-    }
-  }
-  run().catch(console.dir);
+//   async function run() {
+//     try {
+//       // Connect the client to the server	(optional starting in v4.7)
+//       await client.connect();
+//       // Send a ping to confirm a successful connection
+//       await client.db("admin").command({ ping: 1 });
+//       console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//     //   await test();
+//       MongoDB_SET = true;
+//     } catch (error) {
+//       // Ensures that the client will close when you finish/error
+//       console.log (error);
+//     //   await client.close();
+//     }
+//   }
+//   run().catch(console.dir);
 
 
-async function test(){
-    try {
-        const database = client.db("Danish05Web");
-        const users = database.collection("User"); // Collection itu tablenya Mysql
+// async function test(){
+//     try {
+//         const database = client.db("Danish05Web");
+//         const users = database.collection("Game"); // Collection itu tablenya Mysql
 
-        const newuser = {
-            name : "ImNotDanish05",
-            gmail : "EatCookies@gmail.com"
-        };
+//         const newuser = {
+//             filename: "Age_Of_War.swf",
+//             creator: "Armor Games",
+//             title: "Pertarungan Raksasa Serangan Kerajaan Kucing!",
+//             score: 4.5,
+//             thumbnail: "Age Of War.jpg"
+//         };
         
-        const result = await users.insertOne(newuser);
-        console.log(`User inserted with _id: ${result.insertedId}`);
+//         const result = await users.insertOne(newuser);
+//         console.log(`User inserted with _id: ${result.insertedId}`);
 
 
-    } catch (error){
-        console.log(error);
-    } finally {
-        // Tutup koneksi setelah semua selesai
-        await client.close();
-        console.log("Connection to MongoDB closed.");
-    }
-}
+//     } catch (error){
+//         console.log(error);
+//     } finally {
+//         // Tutup koneksi setelah semua selesai
+//         await client.close();
+//         console.log("Connection to MongoDB closed.");
+//     }
+// }
 
-
-  
-async function storedata(){
-    try {
-        run();
-    } 
-}
-
-const games = [{
-    filename: "Age_Of_War.swf",
-    creator: "Armor Games",
-    title: "Pertarungan Raksasa Serangan Kerajaan Kucing!",
-    score: 4.5,
-    thumbnail: "Age Of War.jpg"
-},
-{
-    filename: "a-trashy-love-story-131423467.swf",
-    creator: "Armor Games",
-    title: "Cinta Konyol Pelukan dalam Tumpukan Sampah!",
-    score: 4.0,
-    thumbnail: "a-trashy-love-story-131423467.jpg"
-},
-{
-    filename: "battlegrounds-2-765817f.swf",
-    creator: "Armor Games",
-    title: "Arena Super Pertarungan untuk Dompet Terbaik!",
-    score: 4.7,
-    thumbnail: "battlegrounds-2-765817f.jpg"
-},
-{
-    filename: "spike-a-love-story-11388f2f2.swf",
-    creator: "Armor Games",
-    title: "Cinta Berduri Rintangan Manis di Taman Berduri!",
-    score: 4.2,
-    thumbnail: "spike-a-love-story-11388f2f2.jpg"
-},
-{
-    filename: "block-world-11584f2f2.swf",
-    creator: "Armor Games",
-    title: "Dunia Blok Bangun Istana dari Dadu Raksasa!",
-    score: 4.3,
-    thumbnail: "block-world-11584f2f2.jpg"
-},
-{
-    filename: "base-defense-2-1082817f.swf",
-    creator: "Armor Games",
-    title: "Pertahanan Super Serangan Musuh dari Planet Lain!",
-    score: 4.6,
-    thumbnail: "base-defense-2-1082817f.jpg"
-},
-{
-    filename: "super-drift-3d-12177fdd9.swf",
-    creator: "Armor Games",
-    title: "Racing 3d",
-    score: 4.6,
-    thumbnail: "Super_Drift_3D.jpg"
-},
-{
-    filename: "tevlon-3d-978817f.swf",
-    creator: "Tevlon",
-    title: "Racing 3d",
-    score: 4.6,
-    thumbnail: "Super_Drift_3D.jpg"
-}
-];
+// const games = [{
+//     filename: "Age_Of_War.swf",
+//     creator: "Armor Games",
+//     title: "Pertarungan Raksasa Serangan Kerajaan Kucing!",
+//     score: 4.5,
+//     thumbnail: "Age Of War.jpg"
+// },
+// {
+//     filename: "a-trashy-love-story-131423467.swf",
+//     creator: "Armor Games",
+//     title: "Cinta Konyol Pelukan dalam Tumpukan Sampah!",
+//     score: 4.0,
+//     thumbnail: "a-trashy-love-story-131423467.jpg"
+// },
+// {
+//     filename: "battlegrounds-2-765817f.swf",
+//     creator: "Armor Games",
+//     title: "Arena Super Pertarungan untuk Dompet Terbaik!",
+//     score: 4.7,
+//     thumbnail: "battlegrounds-2-765817f.jpg"
+// },
+// {
+//     filename: "spike-a-love-story-11388f2f2.swf",
+//     creator: "Armor Games",
+//     title: "Cinta Berduri Rintangan Manis di Taman Berduri!",
+//     score: 4.2,
+//     thumbnail: "spike-a-love-story-11388f2f2.jpg"
+// },
+// {
+//     filename: "block-world-11584f2f2.swf",
+//     creator: "Armor Games",
+//     title: "Dunia Blok Bangun Istana dari Dadu Raksasa!",
+//     score: 4.3,
+//     thumbnail: "block-world-11584f2f2.jpg"
+// },
+// {
+//     filename: "base-defense-2-1082817f.swf",
+//     creator: "Armor Games",
+//     title: "Pertahanan Super Serangan Musuh dari Planet Lain!",
+//     score: 4.6,
+//     thumbnail: "base-defense-2-1082817f.jpg"
+// },
+// {
+//     filename: "super-drift-3d-12177fdd9.swf",
+//     creator: "Armor Games",
+//     title: "Racing 3d",
+//     score: 4.6,
+//     thumbnail: "Super_Drift_3D.jpg"
+// },
+// {
+//     filename: "tevlon-3d-978817f.swf",
+//     creator: "Tevlon",
+//     title: "Racing 3d",
+//     score: 4.6,
+//     thumbnail: "Super_Drift_3D.jpg"
+// }
+// ];
 
 /*
 npm install express --save
@@ -168,8 +163,27 @@ software.post("/game/addgame", function(req,res){
 })
 
 
-software.get("/game/list", function (req, res){
-    res.render("gamelist", {games : games})
+software.get("/game/list", async function (req, res){
+    
+    try {
+        // Connect the client to the server	(optional starting in v4.7)
+        await client.connect();
+        // Send a ping to confirm a successful connection
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      //   await test();
+        MongoDB_SET = true;
+        const database = client.db("Danish05Web");
+        const collection = database.collection("Game");
+        const games = await collection.find({}).toArray();
+        console.log(games);
+        res.render("gamelist", {games : games});
+        await client.close();   
+      } catch (error) {
+        // Ensures that the client will close when you finish/error
+        console.log (error);
+      //   await client.close();
+      }
 });
 
 software.get("/game/:gamename", function (req, res){
