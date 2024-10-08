@@ -10,14 +10,20 @@
       <input type="text" class="form-control" placeholder="Example: Minecraft 2" name="title">
     </div>
     <div class="mb-3">
-      <label class="form-label">Files</label>
+      <label class="form-label">Files of the game</label>
     </div>
     <div class="input-group mb-3">
-      
-      <input type="file" class="form-control" id="inputGroupFile02" >
-      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+      <input type="file" class="form-control" id="inputGroupFile02" accept=".sfw" >
+      <label class="input-group-text" for="inputGroupFile02" name="file">Upload</label>
+      <div id="message" class="text-danger"></div>
     </div>
-    
+    <div class="mb-3">
+      <label class="form-label">Thumbnail of the game</label>
+    </div>
+    <div class="input-group mb-3">
+      <input type="file" class="form-control" id="inputGroupFile02" accept=".jpg,.jpeg,.png" >
+      <label class="input-group-text" for="inputGroupFile02" name="file">Upload</label>
+    </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Thumbnail</label>
         <input type="text" class="form-control" name="thumbnail">
