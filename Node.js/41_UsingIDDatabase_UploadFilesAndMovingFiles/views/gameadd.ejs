@@ -2,17 +2,22 @@
 
 <form action="/game/addgame" method="POST">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Creator</label>
-      <input type="text" class="form-control" name="creator">
+      <label class="form-label">Creator</label>
+      <input type="text" class="form-control" placeholder="Example: ImNotDanish05" name="creator">
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Title of the game</label>
-      <input type="text" class="form-control" name="title">
+      <label class="form-label">Title of the game</label>
+      <input type="text" class="form-control" placeholder="Example: Minecraft 2" name="title">
     </div>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">File name</label>
-        <input type="text" class="form-control" name="filename">
-      </div>
+      <label class="form-label">Files</label>
+    </div>
+    <div class="input-group mb-3">
+      
+      <input type="file" class="form-control" id="inputGroupFile02" >
+      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+    </div>
+    
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Thumbnail</label>
         <input type="text" class="form-control" name="thumbnail">
