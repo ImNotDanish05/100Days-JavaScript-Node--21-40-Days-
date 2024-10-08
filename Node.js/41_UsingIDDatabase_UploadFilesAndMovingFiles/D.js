@@ -5,7 +5,7 @@ const request = require("request");
 const openai = require("openai");
 const axios = require('axios');
 const bodyparser = require('body-parser');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 // Please, have ur own env to set up these thing. im not gonna give mine lol
 const UnsplashAPI = process.env.UnsplashAPI;
@@ -186,15 +186,27 @@ software.get("/game/list", async function (req, res){
       }
 });
 
-software.get("/game/:gamename", function (req, res){
-    const gamename = req.params.gamename;
-    console.log("Requested game:", gamename); // Add this line
-    
+software.get("/game/:id", async function (req, res){
+    try {
+    const id = req.params.id;
+    await client.connect();
+    await client.db("admin").command({ping: 1});
+    console.log(`Website game dengan id game ${id} terconnect dengan Database MongoDB!`);
+    const database = client.db("Danish05Web");
+    const collection = database.collection("Game");
+    const game = await collection.findOne({ _id: new ObjectId(id)});
     res.render("game",{
-        gamename : gamename 
+        game : game
     })
-    if (!gameExists) {}
-    })
+    }
+    catch (error){
+        console.error(error);
+        res.status(500).send("Error mencoba masuk ke game");
+    } finally {
+        await client.close();
+    }
+
+})
 
 software.get("/game/*", function (req, res){
     console.log("Yay")

@@ -1,8 +1,8 @@
 <%- include ('temp/header') %>
 
-<p class="text-center fw-bold">Game name: <%= gamename %></p>
+<p class="text-center fw-bold">Game name: <%= game.filename %></p>
 <object>
-    <embed src="/data/games/gameprogram/<%= gamename %>" width="1280" height="720" />
+    <embed src="/data/games/gameprogram/<%= game.filename %>" width="1280" height="720" />
 </object>
 <button id="fullscreen-btn">Go Fullscreen</button>
 <!-- <script src="https://unpkg.com/@ruffle-rs/ruffle"></script> -->
