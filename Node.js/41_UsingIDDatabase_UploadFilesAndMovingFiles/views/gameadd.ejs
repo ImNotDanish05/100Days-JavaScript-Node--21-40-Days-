@@ -13,29 +13,64 @@
       <label class="form-label">Files of the game</label>
     </div>
     <div class="input-group mb-3">
-      <input type="file" class="form-control" id="inputGroupFile02" accept=".sfw" >
-      <label class="input-group-text" for="inputGroupFile02" name="file">Upload</label>
-      <div id="message" class="text-danger"></div>
+      <input type="file" class="form-control" id="inputGroupFile02" accept=".swf" name="filename">
+      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+      
     </div>
+    <div id="message2" class="text-danger"></div>
+
     <div class="mb-3">
       <label class="form-label">Thumbnail of the game</label>
     </div>
     <div class="input-group mb-3">
-      <input type="file" class="form-control" id="inputGroupFile02" accept=".jpg,.jpeg,.png" >
-      <label class="input-group-text" for="inputGroupFile02" name="file">Upload</label>
+      <input type="file" class="form-control" id="inputGroupFile03" accept=".jpg,.jpeg,.png" name="thumbnail">
+      <label class="input-group-text" for="inputGroupFile03">Upload</label>
     </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Thumbnail</label>
-        <input type="text" class="form-control" name="thumbnail">
-      </div>
-      <div class="mb-3">
-        <input type="hidden" class="form-control" name="score" value=1>
-      </div>
+    <div id="message3" class="text-danger"></div>
+    <script>
+      const fileInput1 = document.getElementById('inputGroupFile02');
+      const fileInput2 = document.getElementById('inputGroupFile03');
+      const message2 = document.getElementById('message2');
+      const message3 = document.getElementById('message3');
+    
+      fileInput1.addEventListener('change', function() {
+          const allowedExtensions = /(\.swf)$/i; // Allowed extension
+          verification(fileInput1, message2, allowedExtensions);
+      });
+    
+      fileInput2.addEventListener('change', function() {
+          const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Allowed extensions for thumbnails
+          verification(fileInput2, message3, allowedExtensions);
+      });
+    
+      function verification(fileInput, message, allowedExtensions) {
+          const fileLabel = fileInput.nextElementSibling;
+    
+          if (fileInput.files.length === 0) {
+              fileLabel.textContent = 'Upload'; // Text when no file
+              message.textContent = '';
+          } else {
+              const fileName = fileInput.files[0].name;
+              if (!allowedExtensions.exec(fileName)) {
+                  message.textContent = 'Invalid file! Only allowed file types are accepted.';
+                  fileInput.value = ''; // Reset input file
+                  fileLabel.textContent = 'Upload'; // Reset label
+              } else {
+                  fileLabel.textContent = fileName; // Display uploaded file name
+                  message.textContent = ''; // Clear error message
+              }
+          }
+      }
+    </script>
     <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1">
       <label class="form-check-label" for="exampleCheck1">By accept this, you agree with the Terms and Condition</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="mb-3">
+      <input type="hidden" class="form-control" name="score" value=1>
+    </div>
   </form>
+  
 
 <%- include ('temp/footer.ejs') %>

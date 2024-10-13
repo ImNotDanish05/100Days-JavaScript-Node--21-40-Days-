@@ -38,11 +38,20 @@ software.get("/game/addgame", function(req,res){
     res.render("gameadd");
 })
 
-software.post("/game/addgame", function(req,res){
+software.post("/game/addgame", async function(req,res){
+    try {
     var data = req.body;
     console.log(data);
-    games.push(data);   
-    res.redirect('/game/list');
+    await client.connect();
+    await client.db("admin").command({ ping: 1});
+    const database = client.db("Danish05Web");
+    const collection = database.collection("Game");
+    await collection.insertOne(data);
+    await client.close();
+    res.redirect('/game/list');}
+    catch (error){
+        console.log(error);
+    }
 })
 
 
@@ -208,6 +217,11 @@ software.get("/instagram/:channel/", function(req,res){
         videoID : videoID
         }
 )})
+
+software.get("/test/:id", async function(req,res){
+    const id = req.params.id;
+    res.render(`test/test${id}`);
+})
 
 software.get("/:arg1", function(req,res){
     const arg1 = req.params.arg1;
