@@ -5,7 +5,9 @@ const request = require("request");
 const openai = require("openai");
 const axios = require('axios');
 const bodyparser = require('body-parser');
-const multer = require('multer');
+const multer = require('multer'); //Buat upload file ke laptop
+const path = require('path'); //Buat file manager. Multer hanya bisa upload file doang soalnya
+const fs = require('fs');   
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 // Please, have ur own env to set up these thing. im not gonna give mine lol
@@ -32,16 +34,90 @@ const client = new MongoClient(uri, {
     }
   });
 
+const dir_games = path.join(__dirname, 'data', 'games');
+const dir_gameprogram = path.join(dir_games, 'gameprogram');
+const dir_gamethumbnail = path.join(dir_games, 'gamethumbnail');
 
+function FileAda(x){
+    if (!fs.existsSync(x)){
+        fs.mkdirSync(x, {recursive: true});
+    }
+}
 
+FileAda(dir_gameprogram);
+FileAda(dir_gamethumbnail);
+
+// const storage_gameprogram = multer.diskStorage({
+//     destination: function (req, file, cb){
+//         cb(null, dir_gameprogram); // Buat untuk bisa menyimpan file ke gameprogram folder
+//     },
+//     /* Fungsinya untuk mengubah nama file. tanpa ini, filenya akan tersimpan sesuai nama original filenya file.originalname */
+//     // filename: function (req, file, cb){
+//     //     const uniqueName = Date.now() + '-' + file.originalname;
+//     //     cb(null, uniqueName);
+//     // }
+// })
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        if (file.fieldname === 'filename') {
+            cb(null, dir_gameprogram); // Simpan di folder gameprogram
+        } else if (file.fieldname === 'thumbnail') {
+            cb(null, dir_gamethumbnail); // Simpan di folder gamethumbnail
+        }
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// const storage_gamethumbnail = multer.diskStorage({
+//     destination: function (req, file, cb){
+//         cb(null, dir_gamethumbnail);
+//     }
+// })
+
+// const upload_gameprogram = multer({ storage: storage_gameprogram});
+// const upload_gamethumbnail = multer({ storage: storage_gamethumbnail});
+
+// software.post("game/uploadgame", upload_gameprogram.single('filename'){
+
+// })
 software.get("/game/addgame", function(req,res){
     res.render("gameadd");
 })
 
-software.post("/game/addgame", async function(req,res){
+software.post("/game/addgame", 
+    upload.fields([
+        { name: 'filename', maxCount: 1 },
+        { name: 'thumbnail', maxCount: 1 }
+    ]),
+    async function(req,res){
     try {
+    // upload_gameprogram.single('filename');
+    // upload_gamethumbnail.single('thumbnail');
+    // Akses nama file untuk setiap file
+    // const gameFileName = req.files['filename'][0].filename;
+    // const thumbnailFileName = req.files['thumbnail'][0].filename;
+    // let myVar;
+    // Placing = await String(gameFileName); 
+    // data.filename = gameFileName;
+    // Placing = await String(thumbnailFileName); 
+    // data.thumbnail = thumbnailFileName;
+    // console.log(`Data Files: ${data.creator} | ${data.title} | ${data.filename} | ${data.thumbnail}`);
+    FileAda(dir_gameprogram);
+    FileAda(dir_gamethumbnail);
     var data = req.body;
+    data.thumbnail = req.files.thumbnail[0].filename;
+    data.filename = req.files.filename[0].filename;
+    // data.thumbnail = String(req.files.thumbnail);
     console.log(data);
+    const gameFilePath = req.file ? req.file.path : null;
+    const thumbnailFilePath = req.files && req.files.thumbnail ? req.files.thumbnail.path : null;
+    console.log(gameFilePath);
+    console.log(thumbnailFilePath);
     await client.connect();
     await client.db("admin").command({ ping: 1});
     const database = client.db("Danish05Web");

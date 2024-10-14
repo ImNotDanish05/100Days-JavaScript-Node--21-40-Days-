@@ -1,6 +1,6 @@
 <%- include ('temp/header.ejs') %>
 
-<form action="/game/addgame" method="POST">
+<form action="/game/addgame" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label class="form-label">Creator</label>
       <input type="text" class="form-control" placeholder="Example: ImNotDanish05" name="creator">
