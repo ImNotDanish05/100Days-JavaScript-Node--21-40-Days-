@@ -1,0 +1,19 @@
+<%- include ('temp/header') %>
+    <h1>Instagram Photo/Video</h1>
+    
+    <!-- Embed Instagram Post Here -->
+    <% if (channel == "ImNotDanish05") { %>
+    <% for (var i = 0 ; i < videoID.length ; i++ ) { %>
+        <p> Post: <%= videoID[i].Title %>  </p>
+        <iframe src="https://www.instagram.com/p/<%= videoID[i].ID %>/embed" 
+        width="400" 
+        height="480" 
+        frameborder="0" 
+        scrolling="no" 
+        allowtransparency="true">
+    <% } %>
+    <% } %>
+</iframe>
+<script async defer src="//www.instagram.com/embed.js"></script>
+
+<%- include ('temp/footer') %>

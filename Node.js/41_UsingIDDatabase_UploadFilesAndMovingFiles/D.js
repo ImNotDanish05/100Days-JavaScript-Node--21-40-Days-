@@ -47,17 +47,6 @@ function FileAda(x){
 FileAda(dir_gameprogram);
 FileAda(dir_gamethumbnail);
 
-// const storage_gameprogram = multer.diskStorage({
-//     destination: function (req, file, cb){
-//         cb(null, dir_gameprogram); // Buat untuk bisa menyimpan file ke gameprogram folder
-//     },
-//     /* Fungsinya untuk mengubah nama file. tanpa ini, filenya akan tersimpan sesuai nama original filenya file.originalname */
-//     // filename: function (req, file, cb){
-//     //     const uniqueName = Date.now() + '-' + file.originalname;
-//     //     cb(null, uniqueName);
-//     // }
-// })
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         if (file.fieldname === 'filename') {
@@ -73,18 +62,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// const storage_gamethumbnail = multer.diskStorage({
-//     destination: function (req, file, cb){
-//         cb(null, dir_gamethumbnail);
-//     }
-// })
-
-// const upload_gameprogram = multer({ storage: storage_gameprogram});
-// const upload_gamethumbnail = multer({ storage: storage_gamethumbnail});
-
-// software.post("game/uploadgame", upload_gameprogram.single('filename'){
-
-// })
 software.get("/game/addgame", function(req,res){
     res.render("gameadd");
 })
@@ -154,7 +131,16 @@ software.get("/game/list", async function (req, res){
       }
 });
 
-software.get("/game/:id", async function (req, res){
+software.get("/game/edit/:id"), async function (req, res){
+    console.log("Route /game/edit/:id dipanggil");
+    try{
+        console.log("Worked XDD");
+    } catch (error){
+    res.status(500).send("Web LMAO");
+    }
+}
+
+software.get("/game/play/:id", async function (req, res){
     try {
     const id = req.params.id;
     await client.connect();
@@ -176,7 +162,7 @@ software.get("/game/:id", async function (req, res){
 
 })
 
-software.get("/game/*", function (req, res){
+software.get("/game/*", async function (req, res){
     console.log("Yay")
 })
 
