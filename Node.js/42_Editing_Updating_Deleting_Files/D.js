@@ -62,6 +62,71 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+software.get("/game/delete/:id", async function (req, res){
+    const id = req.params.id;
+    console.log("LMAO");
+    await client.connect();
+    await client.db('admin').command({ping: 1});
+    const database = client.db("Danish05Web");
+    const collection = database.collection("Game");
+    const game = await collection.findOne({ _id: new ObjectId(id)});
+    try {
+        res.render("gamedelete", {
+            game: game,
+            id: id
+        });
+    } catch (error){
+        console.log(error);
+    }
+})
+
+//INI YAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+software.post("/game/delete/:id", async function (req, res) {
+    var id = req.params.id;
+    try {   
+        // Menghubungkan ke database
+        await client.connect();
+        await client.db('admin').command({ ping: 1 });
+        const database = client.db("Danish05Web");
+        const collection = database.collection("Game");
+        // Mencari game berdasarkan ID
+        const game = await collection.findOne({ _id: new ObjectId(id) });
+        // Jika game tidak ditemukan, kembalikan error
+        if (!game) {
+            return res.status(404).send('Game not found');
+        }
+        // Menghapus game dari database
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
+        console.log('Game deleted:', result);
+        // Menentukan path untuk file
+        const filePathThumbnail = path.join(dir_gamethumbnail, game.thumbnail);
+        const filePathGameprogram = path.join(dir_gameprogram, game.filename);
+        // Menghapus thumbnail
+        fs.unlink(filePathThumbnail, (err) => {
+            if (err) {
+                console.error('Error deleting thumbnail file:', err);
+            } else {
+                console.log('Thumbnail file deleted successfully');
+            }
+        });
+        // Menghapus file program
+        fs.unlink(filePathGameprogram, (err) => {
+            if (err) {
+                console.error('Error deleting game program file:', err);
+            } else {
+                console.log('Game program file deleted successfully');
+            }
+        });
+        res.redirect('/game/list');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    } finally {
+        // Menutup koneksi database
+        await client.close();
+    }
+});
+
 software.get("/game/edit/:id", async function (req, res){
     console.log("Route /game/edit/:id dipanggil");
     const id = req.params.id;
@@ -96,6 +161,7 @@ software.post("/game/edit/:id", async function (req,res){
     console.log(data);
     await client.close();
     res.redirect('/game/list');
+    await client.close();
     }catch (error){
         console.log(error);
     }
@@ -237,7 +303,7 @@ software.get('/picture/search/:id', async (req, res) => {
         const response = await axios.get(`${UAPISearch}&page=${id}&query=${SearchTerm}`)
         const data = response.data;
         res.render('picture',{
-            DataS : data,    
+            DataS : data,
             id : id,
             query : query,
             searchterm : SearchTerm

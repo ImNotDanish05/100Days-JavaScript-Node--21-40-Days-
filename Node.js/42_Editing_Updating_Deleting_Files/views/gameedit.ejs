@@ -10,73 +10,75 @@
       <input type="text" class="form-control" placeholder="Example: Minecraft 2" name="title" value="<%= game.title %>">
     </div>
     <p class="d-inline-flex gap-1">
-      <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Advance
-      </a>
-    </p>
-    <p class="d-inline-flex gap-1">
-      <a class="btn btn-danger" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        DANGER ZONE
-      </a>
+      <a class="btn btn-light " data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Advance</a>
+      <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">DANGER ZONE</button>
     </p>
     <div class="row">
-      <div class="collapse multi-collapse" id="collapseExample">
-        <p style="font-weight: bold; color: red;">Only Editing this if you want to update the files</p>
-        <div class="mb-3">
-          <label class="form-label">Files of the game</label>
-        </div>
-        <div class="input-group mb-3">
-          <input type="file" class="form-control" id="inputGroupFile02" accept=".swf" name="filename">
-          <label class="input-group-text" for="inputGroupFile02">Upload</label>
-        </div>
-        <div id="message2" class="text-danger"></div>
+      <div class="p-3 mb-2 bg-black text-white bg-opacity-25">
+        <div class="col">
+          <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <p style="font-weight: bold; color: white;">Only Editing this if you want to update the files</p>
+            <div class="mb-3">
+              <label class="form-label">Files of the game</label>
+            </div>
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="inputGroupFile02" accept=".swf" name="filename">
+              <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            <div id="message2" class="text-danger"></div>
 
-        <div class="mb-3">
-          <label class="form-label">Thumbnail of the game</label>
-        </div>
-        <div class="input-group mb-3">
-          <input type="file" class="form-control" id="inputGroupFile03" accept=".jpg,.jpeg,.png" name="thumbnail">
-          <label class="input-group-text" for="inputGroupFile03">Upload</label>
-        </div>
-        <div id="message3" class="text-danger"></div>
-        <script>
-          const fileInput1 = document.getElementById('inputGroupFile02');
-          const fileInput2 = document.getElementById('inputGroupFile03');
-          const message2 = document.getElementById('message2');
-          const message3 = document.getElementById('message3');
-        
-          fileInput1.addEventListener('change', function() {
-              const allowedExtensions = /(\.swf)$/i; // Allowed extension
-              verification(fileInput1, message2, allowedExtensions);
-          });
-        
-          fileInput2.addEventListener('change', function() {
-              const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Allowed extensions for thumbnails
-              verification(fileInput2, message3, allowedExtensions);
-          });
-        
-          function verification(fileInput, message, allowedExtensions) {
-              const fileLabel = fileInput.nextElementSibling;
-        
-              if (fileInput.files.length === 0) {
-                  fileLabel.textContent = 'Upload'; // Text when no file
-                  message.textContent = '';
-              } else {
-                  const fileName = fileInput.files[0].name;
-                  if (!allowedExtensions.exec(fileName)) {
-                      message.textContent = 'Invalid file! Only allowed file types are accepted.';
-                      fileInput.value = ''; // Reset input file
-                      fileLabel.textContent = 'Upload'; // Reset label
+            <div class="mb-3">
+              <label class="form-label">Thumbnail of the game</label>
+            </div>
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="inputGroupFile03" accept=".jpg,.jpeg,.png" name="thumbnail">
+              <label class="input-group-text" for="inputGroupFile03">Upload</label>
+            </div>
+            <div id="message3" class="text-danger"></div>
+            <script>
+              const fileInput1 = document.getElementById('inputGroupFile02');
+              const fileInput2 = document.getElementById('inputGroupFile03');
+              const message2 = document.getElementById('message2');
+              const message3 = document.getElementById('message3');
+            
+              fileInput1.addEventListener('change', function() {
+                  const allowedExtensions = /(\.swf)$/i; // Allowed extension
+                  verification(fileInput1, message2, allowedExtensions);
+              });
+            
+              fileInput2.addEventListener('change', function() {
+                  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Allowed extensions for thumbnails
+                  verification(fileInput2, message3, allowedExtensions);
+              });
+            
+              function verification(fileInput, message, allowedExtensions) {
+                  const fileLabel = fileInput.nextElementSibling;
+            
+                  if (fileInput.files.length === 0) {
+                      fileLabel.textContent = 'Upload'; // Text when no file
+                      message.textContent = '';
                   } else {
-                      fileLabel.textContent = fileName; // Display uploaded file name
-                      message.textContent = ''; // Clear error message
+                      const fileName = fileInput.files[0].name;
+                      if (!allowedExtensions.exec(fileName)) {
+                          message.textContent = 'Invalid file! Only allowed file types are accepted.';
+                          fileInput.value = ''; // Reset input file
+                          fileLabel.textContent = 'Upload'; // Reset label
+                      } else {
+                          fileLabel.textContent = fileName; // Display uploaded file name
+                          message.textContent = ''; // Clear error message
+                      }
                   }
               }
-          }
-        </script>
-      </div>
-      <div class="collapse multi-collapse" id="collapseExample1">
-        <button type="button" class="btn btn-danger">DELETE GAMES</button>
+            </script>
+          </div>
+        </div>
+        <div class="col">
+          
+          <div class="collapse multi-collapse" id="multiCollapseExample2">
+            <p style="font-weight: bold; color: white;">DANGER ZONE</p>
+            <a href="/game/delete/<%= id %>" class="btn btn-danger">Delete Games</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mb-3">

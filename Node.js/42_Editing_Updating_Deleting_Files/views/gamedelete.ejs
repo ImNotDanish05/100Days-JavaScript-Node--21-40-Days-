@@ -1,0 +1,44 @@
+<%- include ('temp/header.ejs') %>
+
+<form id="deleteForm" action="/game/delete/<%= id %>" method="POST">
+    <div class="p-3 mb-2 bg-black text-white bg-opacity-10">
+        <h1 style="color: black">Please Retype the name of the game to delete</h1>
+        <div class="p-3 mb-2 bg-black text-white bg-opacity-10">
+            <h1 style="font-size: 20px;">Input: <%= game.title %></h1>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" id="gameInput" class="form-control" placeholder="<%= game.title %>" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="form-check mt-5">
+            <input class="form-check-input" type="checkbox" value="" id="deleteCheckbox">
+            <label style="color: black" class="form-check-label" for="deleteCheckbox">
+              Confirm Delete
+            </label>
+        </div>
+        <div class="vstack gap-2 col-md-5 mx-auto">
+            <button type="submit" id="deleteButton" class="btn btn-danger" disabled>Delete</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    const gameTitle = "<%= game.title %>"; // Mendapatkan title dari server
+    const gameInput = document.getElementById('gameInput');
+    const deleteCheckbox = document.getElementById('deleteCheckbox');
+    const deleteButton = document.getElementById('deleteButton'); // Updated to use the correct ID
+
+    // Fungsi untuk mengupdate status tombol Delete
+    const updateDeleteButtonStatus = () => {
+        if (gameInput.value === gameTitle && deleteCheckbox.checked) {
+            deleteButton.disabled = false; // Enable button
+        } else {
+            deleteButton.disabled = true; // Disable button
+        }
+    };
+
+    // Event listeners
+    gameInput.addEventListener('input', updateDeleteButtonStatus);
+    deleteCheckbox.addEventListener('change', updateDeleteButtonStatus);
+</script>
+
+<%- include ('temp/footer.ejs') %>
