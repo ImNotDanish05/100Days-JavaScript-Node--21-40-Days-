@@ -1,0 +1,110 @@
+Kalau kamu ingin membuat website dengan fitur update tanpa refresh seperti di WhatsApp, kamu bisa menggunakan **WebSockets**. Dengan WebSockets, server dan klien dapat saling mengirim data secara real-time tanpa harus melakukan refresh halaman.
+
+Berikut langkah-langkah dasar untuk mengimplementasikannya:
+
+### 1. Install Dependencies
+Pertama, kamu perlu menginstal beberapa package yang diperlukan, seperti **Express** dan **Socket.io**. Kamu bisa menginstalnya dengan perintah berikut:
+
+```bash
+npm init -y
+npm install express socket.io
+```
+
+### 2. Buat Server dengan Express dan Socket.io
+Setelah dependencies terpasang, buat file `server.js` untuk memulai server dengan Express dan menghubungkan Socket.io.
+
+```javascript
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    // Contoh: mendengarkan pesan dari client
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+
+        // Kirim pesan ke semua client termasuk pengirim
+        io.emit('chat message', msg);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
+server.listen(3000, () => {
+    console.log('listening on *:3000');
+});
+```
+
+### 3. Buat File HTML
+Buat file `index.html` untuk halaman client. Di sini, kita akan menggunakan **Socket.io** untuk membuat koneksi antara server dan client, dan mengirim pesan tanpa refresh.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Room</title>
+    <style>
+      ul { list-style-type: none; margin: 0; padding: 0; }
+      li { padding: 8px; margin-bottom: 10px; background-color: #f4f4f4; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const form = document.getElementById('form');
+      const input = document.getElementById('input');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+          // Kirim pesan ke server
+          socket.emit('chat message', input.value);
+          input.value = '';
+        }
+      });
+
+      // Terima pesan dari server dan tampilkan di halaman
+      socket.on('chat message', function(msg) {
+        const item = document.createElement('li');
+        item.textContent = msg;
+        document.getElementById('messages').appendChild(item);
+      });
+    </script>
+  </body>
+</html>
+```
+
+### 4. Jalankan Server
+Setelah semua file siap, jalankan server dengan perintah:
+
+```bash
+node server.js
+```
+
+Server akan berjalan di `http://localhost:3000`. Buka di browser, dan kamu bisa mencoba mengirim pesan dari beberapa tab berbeda untuk melihat pesan muncul secara real-time tanpa refresh.
+
+### Bagaimana Cara Kerjanya:
+- **Socket.io** memungkinkan komunikasi real-time antara server dan client.
+- Server mendengarkan event `'chat message'` dari client, lalu mengirim kembali pesan ke semua client melalui `io.emit()`.
+- Di sisi client, pesan diterima melalui event listener, dan kemudian ditampilkan di halaman tanpa reload.
+
+Dengan pendekatan ini, kamu bisa mengembangkan fitur-fitur real-time lain seperti notifikasi, update data, dll.

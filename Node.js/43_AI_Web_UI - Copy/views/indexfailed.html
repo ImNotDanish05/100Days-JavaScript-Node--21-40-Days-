@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat with Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #chat-box { max-width: 600px; margin: 0 auto; }
+        #messages { border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll; }
+        #input-box { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div id="chat-box">
+        <h3>Chat with Bot</h3>
+        <div id="messages"></div>
+        <div id="input-box">
+            <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.onclick = () => {
+            const message = input.value;
+            if (message.trim()) {
+                addMessage('You', message);
+                socket.emit('user message', message);
+                input.value = '';
+            }
+        };
+
+        // Tambahkan pesan ke chatbox
+        function addMessage(sender, message) {
+            const messageElement = document.createElement('p');
+            messageElement.textContent = `${sender}: ${message}`;
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Terima pesan dari bot
+        socket.on('bot message', (msg) => {
+            addMessage('Bot', msg);
+        });
+    </script>
+</body>
+</html>

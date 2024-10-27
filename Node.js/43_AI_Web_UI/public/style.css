@@ -1,0 +1,40 @@
+.my-div {
+
+  display: flex;
+
+  align-items: flex-end;
+
+  height: 800px; /* Set a height for the container */
+
+}
+
+.chat-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .anime-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e9ecef;
+  }
+
+  .anime-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+
+  body {
+    background-color: #000000;
+}
+
+.bg-secondaryy {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+}

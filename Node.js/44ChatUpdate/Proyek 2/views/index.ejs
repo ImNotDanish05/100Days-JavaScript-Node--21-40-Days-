@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Command Runner</title>
+</head>
+<body>
+  <h1>Run AI Command</h1>
+  <form id="inputForm">
+    <input type="text" id="userInput" placeholder="Enter text here" required />
+    <button type="submit">Run</button>
+  </form>
+  <h2>Response</h2>
+  <div id="output">
+    <p><strong>User Input:</strong> <span id="userInputDisplay"><%= userInput %></span></p>
+    <p><strong>AI Response:</strong> <span id="responseDisplay"><%= response %></span></p>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>

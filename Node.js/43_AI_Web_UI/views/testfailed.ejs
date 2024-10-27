@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT EJS App</title>
+</head>
+<body>
+    <h1>ChatGPT EJS App</h1>
+    <form action="/ask" method="POST">
+        <input type="text" name="prompt" placeholder="Ask something..." required>
+        <button type="submit">Ask</button>
+    </form>
+
+    <% if (response) { %>
+        <h2>Your Input:</h2>
+        <p><%= prompt %></p>
+        <h2>ChatGPT Response:</h2>
+        <p><%= response %></p>
+    <% } %>
+</body>
+</html>

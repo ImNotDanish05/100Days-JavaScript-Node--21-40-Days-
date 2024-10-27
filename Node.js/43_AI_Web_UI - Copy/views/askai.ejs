@@ -16,30 +16,20 @@
           <!-- Sisi kiri untuk chat -->
           <div class="col-md-6 chat-section">
             <!-- Contoh chat -->
-            <div class="chat-box">
-    
-            <% if (typeof response !== 'undefined') { %>
-                <p>Pacar: <%= response %></p>
-            <% } %>
-            <% for( var i = 0 ; i < data.length ; i++ ) { %>
-              <p>User: <%= data[i].prompt %> </p>
-              <p>Pacar: <%= data[i].response %> </p>
-            <% } %>
- 
-                <!-- Konten chat box lainnya -->
-                <form action="/askai" method="POST" class="mt-auto w-100">
-                    <div class="input-group mb-3 w-100">
-                        <button class="input-group-text" type="submit">Submit</button>
-                        <input type="text" class="form-control" placeholder="Input Text Here" id="prompt" name="prompt" required>
-                    </div>
-                </form>
-            
+            <div class="chat-box" id="chat-box">
+              <!-- Konten chat akan ditambahkan di sini melalui JavaScript -->
+            </div>
+            <div class="my-div">  
+              <form id="form" class="mt-auto w-100">
+                  <div class="input-group mb-3 w-100">
+                      <button class="input-group-text" type="submit">Submit</button>
+                      <input type="text" class="form-control" placeholder="Input Text Here" id="prompt" name="prompt" required>
+                  </div>
+              </form>
             </div>
           </div>
       
           <!-- Sisi kanan untuk gambar anime -->
-          <!-- https://via.placeholder.com/800x1000 -->
-          <!-- /picture/TheGF.png -->
           <div class="col-md-6 anime-image">
             <div class="d-flex justify-content-center align-items-center full-height">
               <img src="/picture/TheGF.png" alt="Anime Image" style="width: 100%; height: auto;">
@@ -47,6 +37,8 @@
           </div>
         </div>
       </div>
+      
+      <script src="/socket.io/socket.io.js"></script>
       <script src="chatupdate.js"></script>
 </body>
 </html>
