@@ -61,7 +61,7 @@ app.get(`/${ejs_ai}`, (req, res) => {
 //     }
 });
 
-const aitype = "Respon teks ini dengan personality anak perempuan SMA yang sombong dan malas menjawab, Respond teks hanya boleh 1 kalimat";
+const aitype = "Respond to this text with the personality of a high school girl who’s a bit arrogant and uninterested. Responses should be short, dismissive, and limited to a single sentence each.";
 // const aitype = "(Ini teks out of character, tolong jangan respond chat out of character menggunakan (). Respon teks ini dengan personality anak perempuan SMA yang sombong dan malas menjawab, Respond teks hanya boleh 1 kalimat)";
 // const aitype = "Respon teks ini dengan maksimal 1 kalimat";
 // Route untuk meng-handle form submit dan mengirim POST request ke API Ollama
